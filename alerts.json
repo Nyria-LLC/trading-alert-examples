@@ -1,0 +1,730 @@
+[
+  {
+    "id": "tv-strategy-default-open-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/strategy-default.json",
+    "sample": {
+      "strategy.order.action": "buy",
+      "strategy.market_position": "long",
+      "strategy.prev_market_position": "flat"
+    },
+    "also_in": [
+      "tradingview/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-strategy-default-close-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/strategy-default.json",
+    "sample": {
+      "strategy.order.action": "sell",
+      "strategy.market_position": "flat",
+      "strategy.prev_market_position": "long"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-strategy-default-open-short",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/strategy-default.json",
+    "sample": {
+      "strategy.order.action": "sell",
+      "strategy.market_position": "short",
+      "strategy.prev_market_position": "flat"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-strategy-plain-buy",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/strategy-plain.txt",
+    "sample": {
+      "strategy.order.action": "buy"
+    },
+    "also_in": [
+      "tradingview/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-default-message-buy",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/tradingview-default-strategy.txt",
+    "sample": {
+      "strategy.order.action": "buy",
+      "strategy.position_size": "1"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-default-message-sell-close",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/tradingview-default-strategy.txt",
+    "sample": {
+      "strategy.order.action": "sell",
+      "strategy.position_size": "0"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-default-message-sell-short",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/tradingview-default-strategy.txt",
+    "sample": {
+      "strategy.order.action": "sell",
+      "strategy.position_size": "-1"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-indicator-long-entry",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/indicator-long-entry.json",
+    "also_in": [
+      "tradingview/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-indicator-long-exit",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/indicator-long-exit.json",
+    "also_in": [
+      "tradingview/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-indicator-short-entry",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/indicator-short-entry.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-indicator-short-exit",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/indicator-short-exit.json",
+    "expect": {
+      "action": "CLOSE",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "tv-indicator-limit-entry",
+    "source": "tradingview",
+    "asset": "stocks",
+    "file": "tradingview/messages/indicator-limit-entry.json",
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "limit"
+    }
+  },
+  {
+    "id": "tv-options-by-rules-entry",
+    "source": "tradingview",
+    "asset": "options",
+    "contract": "delta",
+    "file": "tradingview/messages/options-by-rules-entry.json",
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "delta"
+    }
+  },
+  {
+    "id": "tv-options-by-rules-exit",
+    "source": "tradingview",
+    "asset": "options",
+    "contract": "delta",
+    "file": "tradingview/messages/options-by-rules-exit.json",
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "delta"
+    }
+  },
+  {
+    "id": "tv-options-legs-entry",
+    "source": "tradingview",
+    "asset": "options",
+    "contract": "alert",
+    "file": "tradingview/messages/options-legs-entry.json",
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "tv-crypto-entry",
+    "source": "tradingview",
+    "asset": "crypto",
+    "file": "tradingview/messages/crypto-entry.json",
+    "sample": {
+      "ticker": "BTCUSD"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "tv-crypto-exit",
+    "source": "tradingview",
+    "asset": "crypto",
+    "file": "tradingview/messages/crypto-exit.json",
+    "sample": {
+      "ticker": "BTCUSD"
+    },
+    "also_in": [
+      "tradingview/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "pine-indicator-open-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "tradingview/indicator_alert.pine"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-indicator-close-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "tradingview/indicator_alert.pine"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-strategy-open-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "tradingview/strategy_alert_message.pine"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-strategy-close-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "tradingview/strategy_alert_message.pine"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "wh-stock-open-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "file": "webhook/payloads/stock-open-long.json",
+    "also_in": [
+      "webhook/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "wh-stock-close-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "file": "webhook/payloads/stock-close-long.json",
+    "also_in": [
+      "README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "wh-stock-open-short",
+    "source": "webhook",
+    "asset": "stocks",
+    "file": "webhook/payloads/stock-open-short.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "AAPL",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "wh-stock-open-limit",
+    "source": "webhook",
+    "asset": "stocks",
+    "file": "webhook/payloads/stock-open-limit.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "limit"
+    }
+  },
+  {
+    "id": "wh-crypto-open-long",
+    "source": "webhook",
+    "asset": "crypto",
+    "file": "webhook/payloads/crypto-open-long.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "wh-option-call-by-legs",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "file": "webhook/payloads/option-call-by-legs.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "wh-option-call-close",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "file": "webhook/payloads/option-call-close.json",
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert"
+    }
+  },
+  {
+    "id": "wh-plain-text",
+    "source": "webhook",
+    "asset": "stocks",
+    "text": "SPY long entry",
+    "also_in": [
+      "webhook/README.md",
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "wh-option-call-spread",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "file": "webhook/payloads/option-call-spread.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ],
+        [
+          "sell_to_open",
+          "CALL",
+          785
+        ]
+      ]
+    }
+  },
+  {
+    "id": "wh-option-by-rules",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "delta",
+    "file": "webhook/payloads/option-by-rules.json",
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "delta"
+    }
+  },
+  {
+    "id": "dt-discord-long",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "long SPY here",
+    "also_in": [
+      "discord-telegram/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-discord-entry-line",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "SPY long entry",
+    "also_in": [
+      "discord-telegram/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-discord-short",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "SPY short entry",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-discord-close",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "Close SPY long",
+    "also_in": [
+      "discord-telegram/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-discord-close-sentence",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "Sold NVDA, closing the long",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "NVDA",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-telegram-price-in-line",
+    "source": "telegram",
+    "asset": "stocks",
+    "text": "NVDA long here 228",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "NVDA",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "dt-discord-bto",
+    "source": "discord",
+    "asset": "options",
+    "contract": "alert",
+    "text": "BTO SPY 12/18 780C",
+    "also_in": [
+      "discord-telegram/README.md",
+      "README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dt-discord-stc",
+    "source": "discord",
+    "asset": "options",
+    "contract": "alert",
+    "text": "STC SPY 780c 12/18",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert"
+    }
+  },
+  {
+    "id": "dt-telegram-bto-premium",
+    "source": "telegram",
+    "asset": "options",
+    "contract": "alert",
+    "text": "BTO AAPL 345c 11/20 @ 12.50",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          345
+        ]
+      ]
+    }
+  },
+  {
+    "id": "dt-discord-crypto",
+    "source": "discord",
+    "asset": "crypto",
+    "text": "Long BTC here",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "dt-refused-commentary",
+    "source": "discord",
+    "asset": "stocks",
+    "text": "watching TSLA into earnings, no position yet",
+    "also_in": [
+      "discord-telegram/README.md"
+    ],
+    "expect": {
+      "refusal": "ALERT_NOT_ACTIONABLE"
+    }
+  }
+]

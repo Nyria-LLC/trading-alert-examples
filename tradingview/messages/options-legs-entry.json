@@ -1,0 +1,13 @@
+{
+  "action": "OPEN",
+  "instrument": "{{ticker}}",
+  "direction": "LONG",
+  "legs": [
+    {
+      "side": "CALL",
+      "strike": 780,
+      "expiration": "2026-12-18",
+      "action": "buy_to_open"
+    }
+  ]
+}

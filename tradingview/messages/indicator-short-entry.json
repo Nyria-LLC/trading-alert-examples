@@ -1,0 +1,5 @@
+{
+  "action": "OPEN",
+  "instrument": "{{ticker}}",
+  "direction": "SHORT"
+}

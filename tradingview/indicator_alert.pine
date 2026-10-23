@@ -1,0 +1,47 @@
+// Nyria example: an indicator that sends a JSON alert with alert().
+//
+// Where the webhook URL goes
+//   1. In Nyria, create a strategy with TradingView as the alert source. Open its
+//      Integration tab and copy the webhook URL. It has the form
+//      https://trades.nyria.io/webhooks/<your-strategy-token>
+//   2. Add this script to a chart, then open the alert dialog (Alt+A, or Option+A on a Mac).
+//   3. Condition: this indicator, "Any alert() function call".
+//   4. Notifications: tick "Webhook URL" and paste the URL from step 1.
+//   5. Create the alert.
+//
+// The text each alert() call passes is the message that is posted to the URL. The script builds
+// the JSON from syminfo.ticker, so it needs no {{ticker}} placeholder. One alert on the
+// indicator covers every alert() call below.
+//
+// Messages this script sends for SPY:
+//   {"action": "OPEN", "instrument": "SPY", "direction": "LONG"}
+//   {"action": "CLOSE", "instrument": "SPY", "direction": "LONG"}
+//
+// Nyria sets the order size from the bot's budget per entry, so the message carries no size.
+// Check a message in https://nyria.io/tools/alert-tester before the alert goes live, and run
+// the strategy on a paper bot first.
+//@version=6
+indicator("Nyria alert() example: SMA cross", overlay = true)
+
+fastLength = input.int(9, "Fast SMA length", minval = 1)
+slowLength = input.int(21, "Slow SMA length", minval = 2)
+
+fast = ta.sma(close, fastLength)
+slow = ta.sma(close, slowLength)
+
+plot(fast, "Fast SMA", color = color.teal)
+plot(slow, "Slow SMA", color = color.orange)
+
+// syminfo.ticker is the bare ticker (SPY); syminfo.tickerid would add the exchange prefix.
+nyriaMessage(string action, string direction) =>
+    '{"action": "' + action + '", "instrument": "' + syminfo.ticker + '", "direction": "' + direction + '"}'
+
+openLong = ta.crossover(fast, slow)
+closeLong = ta.crossunder(fast, slow)
+
+// alert.freq_once_per_bar_close sends the message only when the bar has closed.
+if openLong
+    alert(nyriaMessage("OPEN", "LONG"), alert.freq_once_per_bar_close)
+
+if closeLong
+    alert(nyriaMessage("CLOSE", "LONG"), alert.freq_once_per_bar_close)

@@ -1,0 +1,7 @@
+{
+  "action": "OPEN",
+  "instrument": "{{ticker}}",
+  "direction": "LONG",
+  "order_type": "limit",
+  "price": {{close}}
+}
