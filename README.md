@@ -102,6 +102,8 @@ Paper is free. Live trading from $15 a month; see [nyria.io/pricing](https://nyr
 
 Found an example the tester rejects or reads differently? Open an issue and name the example id.
 
+How alert-to-order automation works, step by step, and the alert sources it covers: [Nyria-LLC/trading-alert-automation](https://github.com/Nyria-LLC/trading-alert-automation).
+
 ## Not financial advice
 
 Nothing here is financial advice or a trading strategy, and these examples say nothing about how any strategy performs. An automated order can lose money. You are responsible for the alerts you send, the orders they place and the account they trade in. Read the [risk disclosure](https://docs.nyria.io/risk-disclosure) and test on paper first.
