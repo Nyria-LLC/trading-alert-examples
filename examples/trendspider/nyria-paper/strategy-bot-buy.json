@@ -1,0 +1,5 @@
+{
+  "symbol": "%bot_symbol%",
+  "action": "buy",
+  "price": "%last_price%"
+}

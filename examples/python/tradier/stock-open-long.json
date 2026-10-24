@@ -1,0 +1,6 @@
+{
+  "ticker": "AAPL",
+  "action": "OPEN",
+  "direction": "LONG",
+  "order_type": "market"
+}

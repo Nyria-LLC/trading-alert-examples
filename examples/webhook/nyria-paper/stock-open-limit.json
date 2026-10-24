@@ -1,0 +1,7 @@
+{
+  "ticker": "SPY",
+  "action": "OPEN",
+  "direction": "LONG",
+  "order_type": "limit",
+  "price": 760.25
+}

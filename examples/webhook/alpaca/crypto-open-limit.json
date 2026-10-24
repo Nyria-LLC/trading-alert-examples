@@ -1,0 +1,7 @@
+{
+  "ticker": "BTCUSD",
+  "action": "OPEN",
+  "direction": "LONG",
+  "order_type": "limit",
+  "price": 64000
+}

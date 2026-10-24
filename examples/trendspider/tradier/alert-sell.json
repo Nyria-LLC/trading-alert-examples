@@ -1,0 +1,5 @@
+{
+  "symbol": "%alert_symbol%",
+  "action": "sell",
+  "price": "%last_price%"
+}

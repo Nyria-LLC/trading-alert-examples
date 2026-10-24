@@ -6,18 +6,26 @@ validation step on a pasted alert against a private strategy. It never places an
 order and needs no account.
 
 Each entry in alerts.json names one alert, the source and asset type to test it
-under, and the reading it must produce. The script:
+under, and the reading it must produce. An entry lists every copy of the alert in
+"files" (one per broker folder), or holds inline "text". The script:
 
-  1. loads the alert text (inline "text", or the contents of "file"),
-  2. checks that the text appears verbatim in every file listed in "also_in",
-  3. fills TradingView placeholders such as {{ticker}} with sample values,
+  1. loads the alert text and checks that every copy in "files" is identical,
+  2. checks that the text appears verbatim in the README of each copy's folder,
+     and in every file listed in "also_in",
+  3. fills TradingView placeholders such as {{ticker}} and TrendSpider variables
+     such as %alert_symbol% with sample values, and checks that a .json file parses,
   4. asks the tester to read it and compares the reading with "expect".
+     An entry with "cases" is read once for each case, with its own sample values,
+     asset type or expected reading.
+
+The tester is asked once for each distinct text, source and asset type, so copies of
+the same alert in several folders cost one request.
 
 Exit status is 0 only when every selected example matches.
 
 Usage:
   python3 scripts/check_examples.py                 # all examples
-  python3 scripts/check_examples.py --only tv-json-open-long
+  python3 scripts/check_examples.py --only tradingview/indicator-long-entry
   python3 scripts/check_examples.py --offline       # file checks only, no network
 """
 
@@ -47,6 +55,9 @@ DEFAULT_SAMPLE = {
     "strategy.order.contracts": "1",
     "strategy.market_position": "long",
     "strategy.prev_market_position": "flat",
+    "alert_symbol": "SPY",
+    "bot_symbol": "SPY",
+    "last_price": "640.5",
 }
 
 TRANSIENT_CODES = {"AI_UNAVAILABLE", "UNAVAILABLE"}
@@ -59,10 +70,13 @@ def normalize(s: str) -> str:
 
 def fill_placeholders(text: str, sample: dict[str, str]) -> str:
     values = {**DEFAULT_SAMPLE, **sample}
-    return re.sub(r"\{\{([a-z_.]+)\}\}", lambda m: values.get(m.group(1), m.group(0)), text)
+    text = re.sub(r"\{\{([a-z_.]+)\}\}", lambda m: values.get(m.group(1), m.group(0)), text)
+    return re.sub(r"%([a-z_]+)%", lambda m: values.get(m.group(1), m.group(0)), text)
 
 
 def load_text(entry: dict) -> str:
+    if entry.get("files"):
+        return (ROOT / entry["files"][0]).read_text().strip()
     if "file" in entry:
         return (ROOT / entry["file"]).read_text().strip()
     return entry["text"]
@@ -88,7 +102,7 @@ def stale_dates(text: str, today: dt.date) -> list[str]:
     return out
 
 
-def ask(text: str, entry: dict, pace: float, retries: int = 2) -> tuple[dict, int]:
+def ask(text: str, entry: dict, pace: float, retries: int = 3) -> tuple[dict, int]:
     body = {"text": text, "source": entry["source"], "asset": entry["asset"]}
     if entry["asset"] == "options":
         body["contract"] = entry.get("contract", "alert")
@@ -153,6 +167,18 @@ def compare(reading: dict, expect: dict) -> list[str]:
     return problems
 
 
+def folder_readme(path: str) -> Path:
+    return (ROOT / path).parent / "README.md"
+
+
+def expand_cases(entry: dict) -> list[dict]:
+    """One dict per reading to check: the entry's own, or each of its cases."""
+    base = {k: entry[k] for k in ("source", "asset", "contract") if k in entry}
+    if "cases" not in entry:
+        return [{**base, "name": "", "sample": entry.get("sample", {}), "expect": entry["expect"]}]
+    return [{**base, **c, "sample": c.get("sample", {}), "name": c["name"]} for c in entry["cases"]]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--only", action="append", default=[], help="check only this example id (repeatable)")
@@ -174,9 +200,20 @@ def main() -> int:
     today = dt.date.today()
     failures = 0
     checked = 0
+    asked: dict[tuple, tuple[dict, int]] = {}
     for e in selected:
         text = load_text(e)
         problems: list[str] = []
+        for path in e.get("files", []):
+            copy = (ROOT / path).read_text().strip() if (ROOT / path).exists() else None
+            if copy is None:
+                problems.append(f"missing file {path}")
+                continue
+            if copy != text:
+                problems.append(f"{path} differs from {e['files'][0]}")
+            readme = folder_readme(path)
+            if not readme.exists() or normalize(text) not in normalize(readme.read_text()):
+                problems.append(f"text not found verbatim in {readme.relative_to(ROOT)}")
         for path in e.get("also_in", []):
             haystack = normalize((ROOT / path).read_text())
             if normalize(text) not in haystack:
@@ -187,39 +224,54 @@ def main() -> int:
         if old:
             problems.append(f"expiry already passed: {', '.join(old)}; pick a current expiration")
 
-        line = ""
-        if not problems and not args.offline:
-            answer, status = ask(fill_placeholders(text, e.get("sample", {})), e, args.pace)
-            expect = e["expect"]
-            if answer.get("ok"):
-                reading = answer["reading"]
-                if "refusal" in expect:
-                    problems.append(f"expected refusal {expect['refusal']}, but it was read: {describe(reading)}")
+        lines: list[str] = []
+        stop = False
+        if not problems:
+            for c in expand_cases(e):
+                filled = fill_placeholders(text, c["sample"])
+                label = f"{e['id']}" + (f" ({c['name']})" if c["name"] else "")
+                if e["files"][0].endswith(".json") if e.get("files") else False:
+                    try:
+                        json.loads(filled)
+                    except ValueError as err:
+                        problems.append(f"{label}: not valid JSON once filled ({err})")
+                        continue
+                if args.offline:
+                    lines.append("files ok (tester skipped)")
+                    break
+                key = (c["source"], c["asset"], c.get("contract"), filled)
+                if key not in asked:
+                    asked[key] = ask(filled, c, args.pace)
+                answer, status = asked[key]
+                expect = c["expect"]
+                if answer.get("ok"):
+                    reading = answer["reading"]
+                    if "refusal" in expect:
+                        problems.append(f"{label}: expected refusal {expect['refusal']}, but it was read: {describe(reading)}")
+                    else:
+                        problems += [f"{label}: {p}" for p in compare(reading, expect)]
+                    lines.append(describe(reading))
                 else:
-                    problems += compare(reading, expect)
-                line = describe(reading)
-            else:
-                refusal = answer.get("refusal") or {}
-                code = refusal.get("code", f"HTTP {status}")
-                if code == "RATE_LIMITED_LONG":
-                    print(f"STOP {e['id']}: {refusal['message']}")
-                    print(f"\n{checked} of {len(selected)} examples checked before the stop; {checked - failures} matched")
-                    return 3
-                if expect.get("refusal") == code:
-                    line = f"refused as expected ({code})"
-                else:
-                    problems.append(f"refused with {code}: {refusal.get('message') or answer.get('message') or 'no message'}")
-        elif args.offline and not problems:
-            line = "files ok (tester skipped)"
+                    refusal = answer.get("refusal") or {}
+                    code = refusal.get("code", f"HTTP {status}")
+                    if code == "RATE_LIMITED_LONG":
+                        print(f"STOP {e['id']}: {refusal['message']}")
+                        print(f"\n{checked} of {len(selected)} examples checked before the stop; {checked - failures} matched")
+                        return 3
+                    if expect.get("refusal") == code:
+                        lines.append(f"refused as expected ({code})")
+                    else:
+                        problems.append(f"{label}: refused with {code}: {refusal.get('message') or answer.get('message') or 'no message'}")
 
         checked += 1
+        tag = f"[{e['source']}/{e['asset']}]"
         if problems:
             failures += 1
-            print(f"FAIL {e['id']}  [{e['source']}/{e['asset']}]")
+            print(f"FAIL {e['id']}  {tag}")
             for p in problems:
                 print(f"       {p}")
         else:
-            print(f"ok   {e['id']}  [{e['source']}/{e['asset']}] -> {line}")
+            print(f"ok   {e['id']}  {tag} -> {' | '.join(lines)}")
 
     print(f"\n{len(selected) - failures}/{len(selected)} examples match")
     return 1 if failures else 0

@@ -1,0 +1,8 @@
+{
+  "action": "{{strategy.order.action}}",
+  "instrument": "{{ticker}}",
+  "marketPosition": "{{strategy.market_position}}",
+  "prevMarketPosition": "{{strategy.prev_market_position}}",
+  "contracts": "{{strategy.order.contracts}}",
+  "price": {{close}}
+}

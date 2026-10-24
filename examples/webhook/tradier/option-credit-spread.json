@@ -1,0 +1,20 @@
+{
+  "ticker": "SPY",
+  "action": "OPEN",
+  "direction": "SHORT",
+  "price": 1.00,
+  "legs": [
+    {
+      "side": "CALL",
+      "strike": 800,
+      "expiration": "2026-12-18",
+      "action": "sell_to_open"
+    },
+    {
+      "side": "CALL",
+      "strike": 805,
+      "expiration": "2026-12-18",
+      "action": "buy_to_open"
+    }
+  ]
+}

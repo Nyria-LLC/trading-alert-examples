@@ -1,0 +1,13 @@
+{
+  "ticker": "SPY",
+  "action": "CLOSE",
+  "direction": "LONG",
+  "legs": [
+    {
+      "side": "CALL",
+      "strike": 780,
+      "expiration": "2026-12-18",
+      "action": "sell_to_close"
+    }
+  ]
+}

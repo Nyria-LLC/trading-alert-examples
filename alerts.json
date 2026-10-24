@@ -1,17 +1,156 @@
 [
   {
-    "id": "tv-strategy-default-open-long",
+    "id": "tradingview/strategy-order-fills",
     "source": "tradingview",
     "asset": "stocks",
-    "file": "tradingview/messages/strategy-default.json",
-    "sample": {
-      "strategy.order.action": "buy",
-      "strategy.market_position": "long",
-      "strategy.prev_market_position": "flat"
-    },
-    "also_in": [
-      "tradingview/README.md",
-      "README.md"
+    "files": [
+      "examples/tradingview/schwab/strategy-order-fills.json",
+      "examples/tradingview/tradier/strategy-order-fills.json",
+      "examples/tradingview/tastytrade/strategy-order-fills.json",
+      "examples/tradingview/alpaca/strategy-order-fills.json",
+      "examples/tradingview/nyria-paper/strategy-order-fills.json"
+    ],
+    "cases": [
+      {
+        "name": "open long",
+        "expect": {
+          "action": "OPEN",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "buy",
+          "strategy.market_position": "long",
+          "strategy.prev_market_position": "flat"
+        }
+      },
+      {
+        "name": "close long",
+        "expect": {
+          "action": "CLOSE",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "sell",
+          "strategy.market_position": "flat",
+          "strategy.prev_market_position": "long"
+        }
+      },
+      {
+        "name": "open short",
+        "expect": {
+          "action": "OPEN",
+          "direction": "SHORT",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "sell",
+          "strategy.market_position": "short",
+          "strategy.prev_market_position": "flat"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tradingview/strategy-plain-text",
+    "source": "tradingview",
+    "asset": "stocks",
+    "files": [
+      "examples/tradingview/schwab/strategy-plain-text.txt",
+      "examples/tradingview/tradier/strategy-plain-text.txt",
+      "examples/tradingview/tastytrade/strategy-plain-text.txt",
+      "examples/tradingview/alpaca/strategy-plain-text.txt",
+      "examples/tradingview/nyria-paper/strategy-plain-text.txt"
+    ],
+    "cases": [
+      {
+        "name": "buy",
+        "expect": {
+          "action": "OPEN",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "buy"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tradingview/strategy-default-message",
+    "source": "tradingview",
+    "asset": "stocks",
+    "files": [
+      "examples/tradingview/schwab/strategy-default-message.txt",
+      "examples/tradingview/tradier/strategy-default-message.txt",
+      "examples/tradingview/tastytrade/strategy-default-message.txt",
+      "examples/tradingview/alpaca/strategy-default-message.txt",
+      "examples/tradingview/nyria-paper/strategy-default-message.txt"
+    ],
+    "cases": [
+      {
+        "name": "buy",
+        "expect": {
+          "action": "OPEN",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "buy",
+          "strategy.position_size": "1"
+        }
+      },
+      {
+        "name": "sell to flat",
+        "expect": {
+          "action": "CLOSE",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "sell",
+          "strategy.position_size": "0"
+        }
+      },
+      {
+        "name": "sell to short",
+        "expect": {
+          "action": "OPEN",
+          "direction": "SHORT",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        },
+        "sample": {
+          "strategy.order.action": "sell",
+          "strategy.position_size": "-1"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tradingview/indicator-long-entry",
+    "source": "tradingview",
+    "asset": "stocks",
+    "files": [
+      "examples/tradingview/schwab/indicator-long-entry.json",
+      "examples/tradingview/tradier/indicator-long-entry.json",
+      "examples/tradingview/tastytrade/indicator-long-entry.json",
+      "examples/tradingview/alpaca/indicator-long-entry.json",
+      "examples/tradingview/nyria-paper/indicator-long-entry.json"
     ],
     "expect": {
       "action": "OPEN",
@@ -22,17 +161,15 @@
     }
   },
   {
-    "id": "tv-strategy-default-close-long",
+    "id": "tradingview/indicator-long-exit",
     "source": "tradingview",
     "asset": "stocks",
-    "file": "tradingview/messages/strategy-default.json",
-    "sample": {
-      "strategy.order.action": "sell",
-      "strategy.market_position": "flat",
-      "strategy.prev_market_position": "long"
-    },
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/tradingview/schwab/indicator-long-exit.json",
+      "examples/tradingview/tradier/indicator-long-exit.json",
+      "examples/tradingview/tastytrade/indicator-long-exit.json",
+      "examples/tradingview/alpaca/indicator-long-exit.json",
+      "examples/tradingview/nyria-paper/indicator-long-exit.json"
     ],
     "expect": {
       "action": "CLOSE",
@@ -43,17 +180,15 @@
     }
   },
   {
-    "id": "tv-strategy-default-open-short",
+    "id": "tradingview/indicator-short-entry",
     "source": "tradingview",
     "asset": "stocks",
-    "file": "tradingview/messages/strategy-default.json",
-    "sample": {
-      "strategy.order.action": "sell",
-      "strategy.market_position": "short",
-      "strategy.prev_market_position": "flat"
-    },
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/tradingview/schwab/indicator-short-entry.json",
+      "examples/tradingview/tradier/indicator-short-entry.json",
+      "examples/tradingview/tastytrade/indicator-short-entry.json",
+      "examples/tradingview/alpaca/indicator-short-entry.json",
+      "examples/tradingview/nyria-paper/indicator-short-entry.json"
     ],
     "expect": {
       "action": "OPEN",
@@ -64,137 +199,16 @@
     }
   },
   {
-    "id": "tv-strategy-plain-buy",
+    "id": "tradingview/indicator-short-exit",
     "source": "tradingview",
     "asset": "stocks",
-    "file": "tradingview/messages/strategy-plain.txt",
-    "sample": {
-      "strategy.order.action": "buy"
-    },
-    "also_in": [
-      "tradingview/README.md",
-      "README.md"
+    "files": [
+      "examples/tradingview/schwab/indicator-short-exit.json",
+      "examples/tradingview/tradier/indicator-short-exit.json",
+      "examples/tradingview/tastytrade/indicator-short-exit.json",
+      "examples/tradingview/alpaca/indicator-short-exit.json",
+      "examples/tradingview/nyria-paper/indicator-short-exit.json"
     ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-default-message-buy",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/tradingview-default-strategy.txt",
-    "sample": {
-      "strategy.order.action": "buy",
-      "strategy.position_size": "1"
-    },
-    "also_in": [
-      "tradingview/README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-default-message-sell-close",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/tradingview-default-strategy.txt",
-    "sample": {
-      "strategy.order.action": "sell",
-      "strategy.position_size": "0"
-    },
-    "also_in": [
-      "tradingview/README.md"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-default-message-sell-short",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/tradingview-default-strategy.txt",
-    "sample": {
-      "strategy.order.action": "sell",
-      "strategy.position_size": "-1"
-    },
-    "also_in": [
-      "tradingview/README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "SHORT",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-indicator-long-entry",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/indicator-long-entry.json",
-    "also_in": [
-      "tradingview/README.md",
-      "README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-indicator-long-exit",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/indicator-long-exit.json",
-    "also_in": [
-      "tradingview/README.md",
-      "README.md"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-indicator-short-entry",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/indicator-short-entry.json",
-    "expect": {
-      "action": "OPEN",
-      "direction": "SHORT",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "tv-indicator-short-exit",
-    "source": "tradingview",
-    "asset": "stocks",
-    "file": "tradingview/messages/indicator-short-exit.json",
     "expect": {
       "action": "CLOSE",
       "direction": "SHORT",
@@ -204,12 +218,15 @@
     }
   },
   {
-    "id": "tv-indicator-limit-entry",
+    "id": "tradingview/limit-entry",
     "source": "tradingview",
     "asset": "stocks",
-    "file": "tradingview/messages/indicator-limit-entry.json",
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/tradingview/schwab/limit-entry.json",
+      "examples/tradingview/tradier/limit-entry.json",
+      "examples/tradingview/tastytrade/limit-entry.json",
+      "examples/tradingview/alpaca/limit-entry.json",
+      "examples/tradingview/nyria-paper/limit-entry.json"
     ],
     "expect": {
       "action": "OPEN",
@@ -220,13 +237,16 @@
     }
   },
   {
-    "id": "tv-options-by-rules-entry",
+    "id": "tradingview/options-by-rules-entry",
     "source": "tradingview",
     "asset": "options",
     "contract": "delta",
-    "file": "tradingview/messages/options-by-rules-entry.json",
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/tradingview/schwab/options-by-rules-entry.json",
+      "examples/tradingview/tradier/options-by-rules-entry.json",
+      "examples/tradingview/tastytrade/options-by-rules-entry.json",
+      "examples/tradingview/alpaca/options-by-rules-entry.json",
+      "examples/tradingview/nyria-paper/options-by-rules-entry.json"
     ],
     "expect": {
       "action": "OPEN",
@@ -237,13 +257,16 @@
     }
   },
   {
-    "id": "tv-options-by-rules-exit",
+    "id": "tradingview/options-by-rules-exit",
     "source": "tradingview",
     "asset": "options",
     "contract": "delta",
-    "file": "tradingview/messages/options-by-rules-exit.json",
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/tradingview/schwab/options-by-rules-exit.json",
+      "examples/tradingview/tradier/options-by-rules-exit.json",
+      "examples/tradingview/tastytrade/options-by-rules-exit.json",
+      "examples/tradingview/alpaca/options-by-rules-exit.json",
+      "examples/tradingview/nyria-paper/options-by-rules-exit.json"
     ],
     "expect": {
       "action": "CLOSE",
@@ -254,13 +277,266 @@
     }
   },
   {
-    "id": "tv-options-legs-entry",
+    "id": "tradingview/options-spread-limit-entry",
     "source": "tradingview",
     "asset": "options",
+    "contract": "delta",
+    "files": [
+      "examples/tradingview/schwab/options-spread-limit-entry.json",
+      "examples/tradingview/tradier/options-spread-limit-entry.json",
+      "examples/tradingview/tastytrade/options-spread-limit-entry.json",
+      "examples/tradingview/alpaca/options-spread-limit-entry.json",
+      "examples/tradingview/nyria-paper/options-spread-limit-entry.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "delta",
+      "orderType": "limit"
+    }
+  },
+  {
+    "id": "tradingview/crypto-entry",
+    "source": "tradingview",
+    "asset": "crypto",
+    "files": [
+      "examples/tradingview/alpaca/crypto-entry.json",
+      "examples/tradingview/nyria-paper/crypto-entry.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "tradingview/crypto-exit",
+    "source": "tradingview",
+    "asset": "crypto",
+    "files": [
+      "examples/tradingview/alpaca/crypto-exit.json",
+      "examples/tradingview/nyria-paper/crypto-exit.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "trendspider/alert-buy",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/trendspider/schwab/alert-buy.json",
+      "examples/trendspider/tradier/alert-buy.json",
+      "examples/trendspider/tastytrade/alert-buy.json",
+      "examples/trendspider/alpaca/alert-buy.json",
+      "examples/trendspider/nyria-paper/alert-buy.json"
+    ],
+    "cases": [
+      {
+        "name": "stock",
+        "expect": {
+          "action": "OPEN",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "stocks",
+          "orderType": "market"
+        }
+      },
+      {
+        "name": "option, contract from the strategy's rules",
+        "expect": {
+          "action": "OPEN",
+          "direction": "LONG",
+          "instrument": "SPY",
+          "asset": "options",
+          "picksBy": "delta"
+        },
+        "asset": "options",
+        "contract": "delta"
+      }
+    ]
+  },
+  {
+    "id": "trendspider/alert-sell",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/trendspider/schwab/alert-sell.json",
+      "examples/trendspider/tradier/alert-sell.json",
+      "examples/trendspider/tastytrade/alert-sell.json",
+      "examples/trendspider/alpaca/alert-sell.json",
+      "examples/trendspider/nyria-paper/alert-sell.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "trendspider/strategy-bot-buy",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/trendspider/schwab/strategy-bot-buy.json",
+      "examples/trendspider/tradier/strategy-bot-buy.json",
+      "examples/trendspider/tastytrade/strategy-bot-buy.json",
+      "examples/trendspider/alpaca/strategy-bot-buy.json",
+      "examples/trendspider/nyria-paper/strategy-bot-buy.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "trendspider/strategy-bot-sell",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/trendspider/schwab/strategy-bot-sell.json",
+      "examples/trendspider/tradier/strategy-bot-sell.json",
+      "examples/trendspider/tastytrade/strategy-bot-sell.json",
+      "examples/trendspider/alpaca/strategy-bot-sell.json",
+      "examples/trendspider/nyria-paper/strategy-bot-sell.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "discord/long-entry",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/long-entry.txt",
+      "examples/discord/tradier/long-entry.txt",
+      "examples/discord/tastytrade/long-entry.txt",
+      "examples/discord/alpaca/long-entry.txt",
+      "examples/discord/nyria-paper/long-entry.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/long-here",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/long-here.txt",
+      "examples/discord/tradier/long-here.txt",
+      "examples/discord/tastytrade/long-here.txt",
+      "examples/discord/alpaca/long-here.txt",
+      "examples/discord/nyria-paper/long-here.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/price-in-line",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/price-in-line.txt",
+      "examples/discord/tradier/price-in-line.txt",
+      "examples/discord/tastytrade/price-in-line.txt",
+      "examples/discord/alpaca/price-in-line.txt",
+      "examples/discord/nyria-paper/price-in-line.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "NVDA",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/short-entry",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/short-entry.txt",
+      "examples/discord/tradier/short-entry.txt",
+      "examples/discord/tastytrade/short-entry.txt",
+      "examples/discord/alpaca/short-entry.txt",
+      "examples/discord/nyria-paper/short-entry.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/close-long",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/close-long.txt",
+      "examples/discord/tradier/close-long.txt",
+      "examples/discord/tastytrade/close-long.txt",
+      "examples/discord/alpaca/close-long.txt",
+      "examples/discord/nyria-paper/close-long.txt"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/close-sentence",
+    "source": "discord",
+    "asset": "stocks",
+    "files": [
+      "examples/discord/schwab/close-sentence.txt",
+      "examples/discord/tradier/close-sentence.txt",
+      "examples/discord/tastytrade/close-sentence.txt",
+      "examples/discord/alpaca/close-sentence.txt",
+      "examples/discord/nyria-paper/close-sentence.txt"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "NVDA",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "discord/option-bto",
+    "source": "discord",
+    "asset": "options",
     "contract": "alert",
-    "file": "tradingview/messages/options-legs-entry.json",
-    "also_in": [
-      "tradingview/README.md"
+    "files": [
+      "examples/discord/schwab/option-bto.txt",
+      "examples/discord/tradier/option-bto.txt",
+      "examples/discord/tastytrade/option-bto.txt",
+      "examples/discord/alpaca/option-bto.txt",
+      "examples/discord/nyria-paper/option-bto.txt"
     ],
     "expect": {
       "action": "OPEN",
@@ -278,199 +554,17 @@
     }
   },
   {
-    "id": "tv-crypto-entry",
-    "source": "tradingview",
-    "asset": "crypto",
-    "file": "tradingview/messages/crypto-entry.json",
-    "sample": {
-      "ticker": "BTCUSD"
-    },
-    "also_in": [
-      "tradingview/README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "asset": "crypto"
-    }
-  },
-  {
-    "id": "tv-crypto-exit",
-    "source": "tradingview",
-    "asset": "crypto",
-    "file": "tradingview/messages/crypto-exit.json",
-    "sample": {
-      "ticker": "BTCUSD"
-    },
-    "also_in": [
-      "tradingview/README.md"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "asset": "crypto"
-    }
-  },
-  {
-    "id": "pine-indicator-open-long",
-    "source": "tradingview",
-    "asset": "stocks",
-    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
-    "also_in": [
-      "tradingview/indicator_alert.pine"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "pine-indicator-close-long",
-    "source": "tradingview",
-    "asset": "stocks",
-    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
-    "also_in": [
-      "tradingview/indicator_alert.pine"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "pine-strategy-open-long",
-    "source": "tradingview",
-    "asset": "stocks",
-    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
-    "also_in": [
-      "tradingview/strategy_alert_message.pine"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "pine-strategy-close-long",
-    "source": "tradingview",
-    "asset": "stocks",
-    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
-    "also_in": [
-      "tradingview/strategy_alert_message.pine"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "wh-stock-open-long",
-    "source": "webhook",
-    "asset": "stocks",
-    "file": "webhook/payloads/stock-open-long.json",
-    "also_in": [
-      "webhook/README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "AAPL",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "wh-stock-close-long",
-    "source": "webhook",
-    "asset": "stocks",
-    "file": "webhook/payloads/stock-close-long.json",
-    "also_in": [
-      "README.md"
-    ],
-    "expect": {
-      "action": "CLOSE",
-      "direction": "LONG",
-      "instrument": "AAPL",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "wh-stock-open-short",
-    "source": "webhook",
-    "asset": "stocks",
-    "file": "webhook/payloads/stock-open-short.json",
-    "expect": {
-      "action": "OPEN",
-      "direction": "SHORT",
-      "instrument": "AAPL",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "wh-stock-open-limit",
-    "source": "webhook",
-    "asset": "stocks",
-    "file": "webhook/payloads/stock-open-limit.json",
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "limit"
-    }
-  },
-  {
-    "id": "wh-crypto-open-long",
-    "source": "webhook",
-    "asset": "crypto",
-    "file": "webhook/payloads/crypto-open-long.json",
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "asset": "crypto"
-    }
-  },
-  {
-    "id": "wh-option-call-by-legs",
-    "source": "webhook",
+    "id": "discord/option-stc",
+    "source": "discord",
     "asset": "options",
     "contract": "alert",
-    "file": "webhook/payloads/option-call-by-legs.json",
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "options",
-      "picksBy": "alert",
-      "legs": [
-        [
-          "buy_to_open",
-          "CALL",
-          780
-        ]
-      ]
-    }
-  },
-  {
-    "id": "wh-option-call-close",
-    "source": "webhook",
-    "asset": "options",
-    "contract": "alert",
-    "file": "webhook/payloads/option-call-close.json",
+    "files": [
+      "examples/discord/schwab/option-stc.txt",
+      "examples/discord/tradier/option-stc.txt",
+      "examples/discord/tastytrade/option-stc.txt",
+      "examples/discord/alpaca/option-stc.txt",
+      "examples/discord/nyria-paper/option-stc.txt"
+    ],
     "expect": {
       "action": "CLOSE",
       "direction": "LONG",
@@ -480,28 +574,44 @@
     }
   },
   {
-    "id": "wh-plain-text",
-    "source": "webhook",
-    "asset": "stocks",
-    "text": "SPY long entry",
-    "also_in": [
-      "webhook/README.md",
-      "discord-telegram/README.md"
+    "id": "discord/option-bto-premium",
+    "source": "discord",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/discord/schwab/option-bto-premium.txt",
+      "examples/discord/tradier/option-bto-premium.txt",
+      "examples/discord/tastytrade/option-bto-premium.txt",
+      "examples/discord/alpaca/option-bto-premium.txt",
+      "examples/discord/nyria-paper/option-bto-premium.txt"
     ],
     "expect": {
       "action": "OPEN",
       "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
+      "instrument": "AAPL",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          345
+        ]
+      ]
     }
   },
   {
-    "id": "wh-option-call-spread",
-    "source": "webhook",
+    "id": "discord/option-spread",
+    "source": "discord",
     "asset": "options",
     "contract": "alert",
-    "file": "webhook/payloads/option-call-spread.json",
+    "files": [
+      "examples/discord/schwab/option-spread.txt",
+      "examples/discord/tradier/option-spread.txt",
+      "examples/discord/tastytrade/option-spread.txt",
+      "examples/discord/alpaca/option-spread.txt",
+      "examples/discord/nyria-paper/option-spread.txt"
+    ],
     "expect": {
       "action": "OPEN",
       "direction": "LONG",
@@ -523,127 +633,167 @@
     }
   },
   {
-    "id": "wh-option-by-rules",
-    "source": "webhook",
-    "asset": "options",
-    "contract": "delta",
-    "file": "webhook/payloads/option-by-rules.json",
+    "id": "discord/crypto-long",
+    "source": "discord",
+    "asset": "crypto",
+    "files": [
+      "examples/discord/alpaca/crypto-long.txt",
+      "examples/discord/nyria-paper/crypto-long.txt"
+    ],
     "expect": {
       "action": "OPEN",
       "direction": "LONG",
-      "instrument": "SPY",
-      "asset": "options",
-      "picksBy": "delta"
+      "asset": "crypto"
     }
   },
   {
-    "id": "dt-discord-long",
+    "id": "discord/crypto-close",
+    "source": "discord",
+    "asset": "crypto",
+    "files": [
+      "examples/discord/alpaca/crypto-close.txt",
+      "examples/discord/nyria-paper/crypto-close.txt"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "discord/not-an-alert",
     "source": "discord",
     "asset": "stocks",
-    "text": "long SPY here",
-    "also_in": [
-      "discord-telegram/README.md",
-      "README.md"
+    "files": [
+      "examples/discord/schwab/not-an-alert.txt",
+      "examples/discord/tradier/not-an-alert.txt",
+      "examples/discord/tastytrade/not-an-alert.txt",
+      "examples/discord/alpaca/not-an-alert.txt",
+      "examples/discord/nyria-paper/not-an-alert.txt"
+    ],
+    "expect": {
+      "refusal": "ALERT_NOT_ACTIONABLE"
+    }
+  },
+  {
+    "id": "telegram/long-entry",
+    "source": "telegram",
+    "asset": "stocks",
+    "files": [
+      "examples/telegram/schwab/long-entry.txt",
+      "examples/telegram/tradier/long-entry.txt",
+      "examples/telegram/tastytrade/long-entry.txt",
+      "examples/telegram/alpaca/long-entry.txt",
+      "examples/telegram/nyria-paper/long-entry.txt"
     ],
     "expect": {
       "action": "OPEN",
       "direction": "LONG",
       "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
+      "asset": "stocks"
     }
   },
   {
-    "id": "dt-discord-entry-line",
-    "source": "discord",
+    "id": "telegram/long-here",
+    "source": "telegram",
     "asset": "stocks",
-    "text": "SPY long entry",
-    "also_in": [
-      "discord-telegram/README.md",
-      "README.md"
+    "files": [
+      "examples/telegram/schwab/long-here.txt",
+      "examples/telegram/tradier/long-here.txt",
+      "examples/telegram/tastytrade/long-here.txt",
+      "examples/telegram/alpaca/long-here.txt",
+      "examples/telegram/nyria-paper/long-here.txt"
     ],
     "expect": {
       "action": "OPEN",
       "direction": "LONG",
       "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
+      "asset": "stocks"
     }
   },
   {
-    "id": "dt-discord-short",
-    "source": "discord",
+    "id": "telegram/price-in-line",
+    "source": "telegram",
     "asset": "stocks",
-    "text": "SPY short entry",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/schwab/price-in-line.txt",
+      "examples/telegram/tradier/price-in-line.txt",
+      "examples/telegram/tastytrade/price-in-line.txt",
+      "examples/telegram/alpaca/price-in-line.txt",
+      "examples/telegram/nyria-paper/price-in-line.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "NVDA",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "telegram/short-entry",
+    "source": "telegram",
+    "asset": "stocks",
+    "files": [
+      "examples/telegram/schwab/short-entry.txt",
+      "examples/telegram/tradier/short-entry.txt",
+      "examples/telegram/tastytrade/short-entry.txt",
+      "examples/telegram/alpaca/short-entry.txt",
+      "examples/telegram/nyria-paper/short-entry.txt"
     ],
     "expect": {
       "action": "OPEN",
       "direction": "SHORT",
       "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
+      "asset": "stocks"
     }
   },
   {
-    "id": "dt-discord-close",
-    "source": "discord",
+    "id": "telegram/close-long",
+    "source": "telegram",
     "asset": "stocks",
-    "text": "Close SPY long",
-    "also_in": [
-      "discord-telegram/README.md",
-      "README.md"
+    "files": [
+      "examples/telegram/schwab/close-long.txt",
+      "examples/telegram/tradier/close-long.txt",
+      "examples/telegram/tastytrade/close-long.txt",
+      "examples/telegram/alpaca/close-long.txt",
+      "examples/telegram/nyria-paper/close-long.txt"
     ],
     "expect": {
       "action": "CLOSE",
       "direction": "LONG",
       "instrument": "SPY",
-      "asset": "stocks",
-      "orderType": "market"
+      "asset": "stocks"
     }
   },
   {
-    "id": "dt-discord-close-sentence",
-    "source": "discord",
+    "id": "telegram/close-sentence",
+    "source": "telegram",
     "asset": "stocks",
-    "text": "Sold NVDA, closing the long",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/schwab/close-sentence.txt",
+      "examples/telegram/tradier/close-sentence.txt",
+      "examples/telegram/tastytrade/close-sentence.txt",
+      "examples/telegram/alpaca/close-sentence.txt",
+      "examples/telegram/nyria-paper/close-sentence.txt"
     ],
     "expect": {
       "action": "CLOSE",
       "direction": "LONG",
       "instrument": "NVDA",
-      "asset": "stocks",
-      "orderType": "market"
+      "asset": "stocks"
     }
   },
   {
-    "id": "dt-telegram-price-in-line",
+    "id": "telegram/option-bto",
     "source": "telegram",
-    "asset": "stocks",
-    "text": "NVDA long here 228",
-    "also_in": [
-      "discord-telegram/README.md"
-    ],
-    "expect": {
-      "action": "OPEN",
-      "direction": "LONG",
-      "instrument": "NVDA",
-      "asset": "stocks",
-      "orderType": "market"
-    }
-  },
-  {
-    "id": "dt-discord-bto",
-    "source": "discord",
     "asset": "options",
     "contract": "alert",
-    "text": "BTO SPY 12/18 780C",
-    "also_in": [
-      "discord-telegram/README.md",
-      "README.md"
+    "files": [
+      "examples/telegram/schwab/option-bto.txt",
+      "examples/telegram/tradier/option-bto.txt",
+      "examples/telegram/tastytrade/option-bto.txt",
+      "examples/telegram/alpaca/option-bto.txt",
+      "examples/telegram/nyria-paper/option-bto.txt"
     ],
     "expect": {
       "action": "OPEN",
@@ -661,13 +811,16 @@
     }
   },
   {
-    "id": "dt-discord-stc",
-    "source": "discord",
+    "id": "telegram/option-stc",
+    "source": "telegram",
     "asset": "options",
     "contract": "alert",
-    "text": "STC SPY 780c 12/18",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/schwab/option-stc.txt",
+      "examples/telegram/tradier/option-stc.txt",
+      "examples/telegram/tastytrade/option-stc.txt",
+      "examples/telegram/alpaca/option-stc.txt",
+      "examples/telegram/nyria-paper/option-stc.txt"
     ],
     "expect": {
       "action": "CLOSE",
@@ -678,13 +831,16 @@
     }
   },
   {
-    "id": "dt-telegram-bto-premium",
+    "id": "telegram/option-bto-premium",
     "source": "telegram",
     "asset": "options",
     "contract": "alert",
-    "text": "BTO AAPL 345c 11/20 @ 12.50",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/schwab/option-bto-premium.txt",
+      "examples/telegram/tradier/option-bto-premium.txt",
+      "examples/telegram/tastytrade/option-bto-premium.txt",
+      "examples/telegram/alpaca/option-bto-premium.txt",
+      "examples/telegram/nyria-paper/option-bto-premium.txt"
     ],
     "expect": {
       "action": "OPEN",
@@ -702,12 +858,44 @@
     }
   },
   {
-    "id": "dt-discord-crypto",
-    "source": "discord",
+    "id": "telegram/option-spread",
+    "source": "telegram",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/telegram/schwab/option-spread.txt",
+      "examples/telegram/tradier/option-spread.txt",
+      "examples/telegram/tastytrade/option-spread.txt",
+      "examples/telegram/alpaca/option-spread.txt",
+      "examples/telegram/nyria-paper/option-spread.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ],
+        [
+          "sell_to_open",
+          "CALL",
+          785
+        ]
+      ]
+    }
+  },
+  {
+    "id": "telegram/crypto-long",
+    "source": "telegram",
     "asset": "crypto",
-    "text": "Long BTC here",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/alpaca/crypto-long.txt",
+      "examples/telegram/nyria-paper/crypto-long.txt"
     ],
     "expect": {
       "action": "OPEN",
@@ -716,15 +904,584 @@
     }
   },
   {
-    "id": "dt-refused-commentary",
-    "source": "discord",
+    "id": "telegram/crypto-close",
+    "source": "telegram",
+    "asset": "crypto",
+    "files": [
+      "examples/telegram/alpaca/crypto-close.txt",
+      "examples/telegram/nyria-paper/crypto-close.txt"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "telegram/not-an-alert",
+    "source": "telegram",
     "asset": "stocks",
-    "text": "watching TSLA into earnings, no position yet",
-    "also_in": [
-      "discord-telegram/README.md"
+    "files": [
+      "examples/telegram/schwab/not-an-alert.txt",
+      "examples/telegram/tradier/not-an-alert.txt",
+      "examples/telegram/tastytrade/not-an-alert.txt",
+      "examples/telegram/alpaca/not-an-alert.txt",
+      "examples/telegram/nyria-paper/not-an-alert.txt"
     ],
     "expect": {
       "refusal": "ALERT_NOT_ACTIONABLE"
+    }
+  },
+  {
+    "id": "webhook/buy-minimal",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/buy-minimal.json",
+      "examples/webhook/tradier/buy-minimal.json",
+      "examples/webhook/tastytrade/buy-minimal.json",
+      "examples/webhook/alpaca/buy-minimal.json",
+      "examples/webhook/nyria-paper/buy-minimal.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/stock-open-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/stock-open-long.json",
+      "examples/webhook/tradier/stock-open-long.json",
+      "examples/webhook/tastytrade/stock-open-long.json",
+      "examples/webhook/alpaca/stock-open-long.json",
+      "examples/webhook/nyria-paper/stock-open-long.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "webhook/stock-close-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/stock-close-long.json",
+      "examples/webhook/tradier/stock-close-long.json",
+      "examples/webhook/tastytrade/stock-close-long.json",
+      "examples/webhook/alpaca/stock-close-long.json",
+      "examples/webhook/nyria-paper/stock-close-long.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/stock-open-short",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/stock-open-short.json",
+      "examples/webhook/tradier/stock-open-short.json",
+      "examples/webhook/tastytrade/stock-open-short.json",
+      "examples/webhook/alpaca/stock-open-short.json",
+      "examples/webhook/nyria-paper/stock-open-short.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/stock-close-short",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/stock-close-short.json",
+      "examples/webhook/tradier/stock-close-short.json",
+      "examples/webhook/tastytrade/stock-close-short.json",
+      "examples/webhook/alpaca/stock-close-short.json",
+      "examples/webhook/nyria-paper/stock-close-short.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "SHORT",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/stock-open-limit",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/stock-open-limit.json",
+      "examples/webhook/tradier/stock-open-limit.json",
+      "examples/webhook/tastytrade/stock-open-limit.json",
+      "examples/webhook/alpaca/stock-open-limit.json",
+      "examples/webhook/nyria-paper/stock-open-limit.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "limit"
+    }
+  },
+  {
+    "id": "webhook/scale-in-message-id",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/scale-in-message-id.json",
+      "examples/webhook/tradier/scale-in-message-id.json",
+      "examples/webhook/tastytrade/scale-in-message-id.json",
+      "examples/webhook/alpaca/scale-in-message-id.json",
+      "examples/webhook/nyria-paper/scale-in-message-id.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/plain-text",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/webhook/schwab/plain-text.txt",
+      "examples/webhook/tradier/plain-text.txt",
+      "examples/webhook/tastytrade/plain-text.txt",
+      "examples/webhook/alpaca/plain-text.txt",
+      "examples/webhook/nyria-paper/plain-text.txt"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "webhook/option-by-rules",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "delta",
+    "files": [
+      "examples/webhook/schwab/option-by-rules.json",
+      "examples/webhook/tradier/option-by-rules.json",
+      "examples/webhook/tastytrade/option-by-rules.json",
+      "examples/webhook/alpaca/option-by-rules.json",
+      "examples/webhook/nyria-paper/option-by-rules.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "delta"
+    }
+  },
+  {
+    "id": "webhook/option-call-by-legs",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/webhook/schwab/option-call-by-legs.json",
+      "examples/webhook/tradier/option-call-by-legs.json",
+      "examples/webhook/tastytrade/option-call-by-legs.json",
+      "examples/webhook/alpaca/option-call-by-legs.json",
+      "examples/webhook/nyria-paper/option-call-by-legs.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "webhook/option-call-close",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/webhook/schwab/option-call-close.json",
+      "examples/webhook/tradier/option-call-close.json",
+      "examples/webhook/tastytrade/option-call-close.json",
+      "examples/webhook/alpaca/option-call-close.json",
+      "examples/webhook/nyria-paper/option-call-close.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "sell_to_close",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "webhook/option-call-spread",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/webhook/schwab/option-call-spread.json",
+      "examples/webhook/tradier/option-call-spread.json",
+      "examples/webhook/tastytrade/option-call-spread.json",
+      "examples/webhook/alpaca/option-call-spread.json",
+      "examples/webhook/nyria-paper/option-call-spread.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ],
+        [
+          "sell_to_open",
+          "CALL",
+          785
+        ]
+      ]
+    }
+  },
+  {
+    "id": "webhook/option-credit-spread",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/webhook/schwab/option-credit-spread.json",
+      "examples/webhook/tradier/option-credit-spread.json",
+      "examples/webhook/tastytrade/option-credit-spread.json",
+      "examples/webhook/alpaca/option-credit-spread.json",
+      "examples/webhook/nyria-paper/option-credit-spread.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "sell_to_open",
+          "CALL",
+          800
+        ],
+        [
+          "buy_to_open",
+          "CALL",
+          805
+        ]
+      ]
+    }
+  },
+  {
+    "id": "webhook/option-iron-condor",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/webhook/schwab/option-iron-condor.json",
+      "examples/webhook/tradier/option-iron-condor.json",
+      "examples/webhook/tastytrade/option-iron-condor.json",
+      "examples/webhook/alpaca/option-iron-condor.json",
+      "examples/webhook/nyria-paper/option-iron-condor.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "SHORT",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "sell_to_open",
+          "PUT",
+          745
+        ],
+        [
+          "buy_to_open",
+          "PUT",
+          740
+        ],
+        [
+          "sell_to_open",
+          "CALL",
+          800
+        ],
+        [
+          "buy_to_open",
+          "CALL",
+          805
+        ]
+      ]
+    }
+  },
+  {
+    "id": "webhook/crypto-open-long",
+    "source": "webhook",
+    "asset": "crypto",
+    "files": [
+      "examples/webhook/alpaca/crypto-open-long.json",
+      "examples/webhook/nyria-paper/crypto-open-long.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "webhook/crypto-close-long",
+    "source": "webhook",
+    "asset": "crypto",
+    "files": [
+      "examples/webhook/alpaca/crypto-close-long.json",
+      "examples/webhook/nyria-paper/crypto-close-long.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "webhook/crypto-open-limit",
+    "source": "webhook",
+    "asset": "crypto",
+    "files": [
+      "examples/webhook/alpaca/crypto-open-limit.json",
+      "examples/webhook/nyria-paper/crypto-open-limit.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto",
+      "orderType": "limit"
+    }
+  },
+  {
+    "id": "python/stock-open-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/python/schwab/stock-open-long.json",
+      "examples/python/tradier/stock-open-long.json",
+      "examples/python/tastytrade/stock-open-long.json",
+      "examples/python/alpaca/stock-open-long.json",
+      "examples/python/nyria-paper/stock-open-long.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "python/stock-close-long",
+    "source": "webhook",
+    "asset": "stocks",
+    "files": [
+      "examples/python/schwab/stock-close-long.json",
+      "examples/python/tradier/stock-close-long.json",
+      "examples/python/tastytrade/stock-close-long.json",
+      "examples/python/alpaca/stock-close-long.json",
+      "examples/python/nyria-paper/stock-close-long.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "AAPL",
+      "asset": "stocks"
+    }
+  },
+  {
+    "id": "python/option-call-by-legs",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/python/schwab/option-call-by-legs.json",
+      "examples/python/tradier/option-call-by-legs.json",
+      "examples/python/tastytrade/option-call-by-legs.json",
+      "examples/python/alpaca/option-call-by-legs.json",
+      "examples/python/nyria-paper/option-call-by-legs.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "buy_to_open",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "python/option-call-close",
+    "source": "webhook",
+    "asset": "options",
+    "contract": "alert",
+    "files": [
+      "examples/python/schwab/option-call-close.json",
+      "examples/python/tradier/option-call-close.json",
+      "examples/python/tastytrade/option-call-close.json",
+      "examples/python/alpaca/option-call-close.json",
+      "examples/python/nyria-paper/option-call-close.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "options",
+      "picksBy": "alert",
+      "legs": [
+        [
+          "sell_to_close",
+          "CALL",
+          780
+        ]
+      ]
+    }
+  },
+  {
+    "id": "python/crypto-open-long",
+    "source": "webhook",
+    "asset": "crypto",
+    "files": [
+      "examples/python/alpaca/crypto-open-long.json",
+      "examples/python/nyria-paper/crypto-open-long.json"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "python/crypto-close-long",
+    "source": "webhook",
+    "asset": "crypto",
+    "files": [
+      "examples/python/alpaca/crypto-close-long.json",
+      "examples/python/nyria-paper/crypto-close-long.json"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "asset": "crypto"
+    }
+  },
+  {
+    "id": "pine-indicator-open-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "examples/tradingview/pine/indicator_alert.pine"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-indicator-close-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "examples/tradingview/pine/indicator_alert.pine"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-strategy-open-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"OPEN\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "examples/tradingview/pine/strategy_alert_message.pine"
+    ],
+    "expect": {
+      "action": "OPEN",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
+    }
+  },
+  {
+    "id": "pine-strategy-close-long",
+    "source": "tradingview",
+    "asset": "stocks",
+    "text": "{\"action\": \"CLOSE\", \"instrument\": \"SPY\", \"direction\": \"LONG\"}",
+    "also_in": [
+      "examples/tradingview/pine/strategy_alert_message.pine"
+    ],
+    "expect": {
+      "action": "CLOSE",
+      "direction": "LONG",
+      "instrument": "SPY",
+      "asset": "stocks",
+      "orderType": "market"
     }
   }
 ]
